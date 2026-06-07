@@ -70,7 +70,7 @@ export default function ExperienceSection() {
           </div>
           <div className="glass-light rounded-xl px-5 py-3 flex flex-col items-center">
             <span className="text-2xl font-heading font-black text-primary">10+</span>
-            <span className="text-[10px] font-mono tracking-widest text-muted-foreground mt-1">EXPERIENCE</span>
+            <span className="text-[10px] font-mono tracking-widest text-muted-foreground mt-1">PROJECT</span>
           </div>
         </motion.div>
 
