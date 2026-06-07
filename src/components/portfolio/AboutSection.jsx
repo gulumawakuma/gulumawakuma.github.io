@@ -1,0 +1,155 @@
+import React, { useState, useEffect } from "react";
+import { motion as Motion } from "framer-motion";
+import { MapPin, Clock, Coffee, Code2, Briefcase, GraduationCap } from "lucide-react";
+
+const SKYLINE_IMG = "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/7acdeece5_generated_bd81da44.png";
+
+function AddisClockWidget() {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const addisTime = new Date(time.toLocaleString("en-US", { timeZone: "Africa/Addis_Ababa" }));
+  const hours = addisTime.getHours().toString().padStart(2, "0");
+  const minutes = addisTime.getMinutes().toString().padStart(2, "0");
+  const seconds = addisTime.getSeconds().toString().padStart(2, "0");
+
+  return (
+    <div className="glass-light rounded-2xl p-6 flex flex-col items-center justify-center h-full">
+      <MapPin size={16} className="text-accent mb-2" />
+      <p className="text-[10px] font-mono tracking-[0.3em] text-muted-foreground mb-3">
+        ADDIS ABABA
+      </p>
+      <div className="font-mono text-4xl font-bold tracking-wider text-foreground">
+        {hours}
+        <span className="text-primary animate-pulse">:</span>
+        {minutes}
+        <span className="text-primary/50">:</span>
+        <span className="text-muted-foreground text-2xl">{seconds}</span>
+      </div>
+      <p className="text-xs text-muted-foreground mt-2 font-mono">EAT (UTC+3)</p>
+    </div>
+  );
+}
+
+const stats = [
+  { icon: Code2, label: "Projects Shipped", value: "10+" },
+  { icon: Coffee, label: "Cups of Buna", value: "∞" },
+  { icon: Briefcase, label: "Years Coding", value: "3+" },
+  { icon: GraduationCap, label: "CSE Degree", value: "BSc" },
+];
+
+export default function AboutSection() {
+  return (
+    <section id="about" className="py-32 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <Motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
+        >
+          THE PERSON
+        </Motion.p>
+        <Motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em] mb-16"
+        >
+          About Me
+        </Motion.h2>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[180px]">
+          {/* Bio - Large card */}
+          <Motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-2 lg:col-span-2 row-span-2 glass-light rounded-2xl p-8 flex flex-col justify-center"
+          >
+            <h3 className="text-2xl font-heading font-bold mb-4">
+              Building from the <span className="text-accent">Highlands</span>
+            </h3>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              I'm Guluma Wakuma — a Full-Stack &amp; iOS Software Engineer based in Addis Ababa, Ethiopia. 
+              With strong expertise in React, Node.js, Swift, SwiftUI, and UIKit, I create clean, 
+              maintainable, performance-driven code across the full stack.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              I'm comfortable taking projects from concept to production — designing responsive frontends, 
+              building robust RESTful APIs, and delivering polished native iOS apps. I thrive on solving 
+              complex real-world problems and collaborating with cross-functional teams.
+            </p>
+            <p className="text-sm font-mono text-primary/80 border-l-2 border-primary/40 pl-4 italic">
+              "Code with clarity, build for purpose, innovate with passion."
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["Full-Time", "Freelance", "Onsite"].map(t => (
+                <span key={t} className="px-3 py-1 text-[10px] font-mono tracking-widest border border-accent/40 text-accent rounded-full">
+                  OPEN TO {t.toUpperCase()}
+                </span>
+              ))}
+            </div>
+          </Motion.div>
+
+          {/* Clock Widget */}
+          <Motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="row-span-1"
+          >
+            <AddisClockWidget />
+          </Motion.div>
+
+          {/* Skyline */}
+          <Motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="row-span-1 rounded-2xl overflow-hidden relative"
+          >
+            <img
+              src={SKYLINE_IMG}
+              alt="Addis Ababa skyline at twilight"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            <div className="absolute bottom-3 left-4">
+              <p className="text-[10px] font-mono tracking-widest text-foreground/80">
+                HOME BASE
+              </p>
+            </div>
+          </Motion.div>
+
+          {/* Stats */}
+          {stats.map((stat, i) => (
+            <Motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 + i * 0.08 }}
+              className="glass-light rounded-2xl p-5 flex flex-col justify-between"
+            >
+              <stat.icon size={18} className="text-primary" />
+              <div>
+                <p className="text-2xl font-heading font-bold text-foreground">{stat.value}</p>
+                <p className="text-xs font-mono text-muted-foreground tracking-wider mt-1">
+                  {stat.label.toUpperCase()}
+                </p>
+              </div>
+            </Motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
