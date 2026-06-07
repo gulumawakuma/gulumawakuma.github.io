@@ -27,7 +27,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 pb-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[80vh]">
-          
+
           {/* Left - Portrait */}
           <M.div
             initial={{ opacity: 0, x: -60 }}
