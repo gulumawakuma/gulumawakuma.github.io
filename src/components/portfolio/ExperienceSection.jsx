@@ -29,11 +29,11 @@ const experiences = [
   },
   {
     role: "iOS Developer",
-    org: "Avrioc, UAE",
+    org: "Avrioc",
     period: "2025 – 2026",
     current: false,
     desc: "Participated in a structured iOS development training program, mastering Swift, SwiftUI, UIKit, and Apple's ecosystem to build production-ready native iOS applications.",
-    tags: ["SWIFT", "SWIFTUI", "UIKIT", "UAE"],
+    tags: ["SWIFT", "SWIFTUI", "UIKIT"],
   },
 ];
 
