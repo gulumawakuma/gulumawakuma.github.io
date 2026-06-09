@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 export default function Footer() {
@@ -20,7 +20,7 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <motion.div
+            <Motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ repeat: Infinity, duration: 2 }}
               className="w-2 h-2 rounded-full bg-primary"

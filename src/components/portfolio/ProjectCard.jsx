@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { ExternalLink, Github, ChevronRight } from "lucide-react";
 
 export default function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.div
+    <Motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -18,7 +18,7 @@ export default function ProjectCard({ project, index }) {
       <div className="relative h-[480px] rounded-2xl overflow-hidden border border-border/50 bg-card">
         {/* Image */}
         <div className="relative h-[55%] overflow-hidden">
-          <motion.img
+          <Motion.img
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
@@ -57,13 +57,13 @@ export default function ProjectCard({ project, index }) {
           </p>
 
           <div className="flex items-center justify-between">
-            <motion.div
+            <Motion.div
               className="flex items-center gap-2 text-accent text-sm font-medium"
               animate={{ x: hovered ? 4 : 0 }}
             >
               <span>View Project</span>
               <ChevronRight size={14} />
-            </motion.div>
+            </Motion.div>
             <div className="flex items-center gap-2">
               {project.type === "team" && (
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-accent/30 text-accent tracking-wider">
@@ -79,6 +79,6 @@ export default function ProjectCard({ project, index }) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }

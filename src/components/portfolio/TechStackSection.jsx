@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Server, Monitor, Smartphone } from "lucide-react";
 
 const pillars = [
@@ -63,7 +63,7 @@ function SkillBar({ name, level, delay, color }) {
         <span className="text-xs font-mono text-muted-foreground/60">{level}%</span>
       </div>
       <div className="h-1 bg-muted rounded-full overflow-hidden">
-        <motion.div
+        <Motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
@@ -83,26 +83,26 @@ export default function TechStackSection() {
   return (
     <section id="stack" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.p
+        <Motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
         >
           EXPERTISE
-        </motion.p>
-        <motion.h2
+        </Motion.p>
+        <Motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em] mb-16"
         >
           Tech Stack
-        </motion.h2>
+        </Motion.h2>
 
         <div className="grid md:grid-cols-3 gap-6">
           {pillars.map((pillar, pi) => (
-            <motion.div
+            <Motion.div
               key={pillar.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ export default function TechStackSection() {
                   color={pillar.color}
                 />
               ))}
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
       </div>

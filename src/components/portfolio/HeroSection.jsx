@@ -1,6 +1,8 @@
 import React from "react";
 import { motion as M } from "framer-motion";
-import { ArrowDown, MapPin } from "lucide-react";
+import { ArrowDown, MapPin, Download } from "lucide-react";
+
+const RESUME_URL = "/resume.pdf";
 
 const coreTruths = [
   "FULL-STACK ENGINEER",
@@ -118,6 +120,34 @@ export default function HeroSection() {
             >
               "Code with clarity, build for purpose, innovate with passion."
             </M.p>
+
+            {/* CTA */}
+            <M.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="flex flex-wrap gap-4 mb-10"
+            >
+              <M.a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground font-mono font-semibold tracking-wider text-sm hover:bg-accent/90 transition-colors cursor-pointer"
+              >
+                <Download size={16} />
+                Download Resume
+              </M.a>
+              <M.button
+                onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-mono font-semibold tracking-wider text-sm hover:border-primary/50 hover:bg-muted/50 transition-colors cursor-pointer"
+              >
+                Get in Touch
+              </M.button>
+            </M.div>
 
             {/* Core Truths */}
             <div className="flex flex-wrap gap-2 mb-12">

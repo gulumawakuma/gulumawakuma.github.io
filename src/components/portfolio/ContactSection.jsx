@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 
 const socials = [
-  { icon: Github, label: "GitHub", href: "https://github.com//gulumawakuma" },
+  { icon: Github, label: "GitHub", href: "https://github.com/gulumawakuma" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/guluma-wakuma-olansa" },
   { icon: Mail, label: "Email", href: "mailto:gulumawakuma3@gmail.com" },
   { icon: MessageCircle, label: "Telegram", href: "https://t.me/gule_wako" },

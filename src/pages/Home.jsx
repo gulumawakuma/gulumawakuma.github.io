@@ -7,6 +7,7 @@ import ExperienceSection from "../components/portfolio/ExperienceSection";
 import AboutSection from "../components/portfolio/AboutSection";
 import ContactSection from "../components/portfolio/ContactSection";
 import Footer from "../components/portfolio/Footer";
+import ScrollToTop from "../components/ui/ScrollToTop";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <AboutSection />
       <ContactSection />
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

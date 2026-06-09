@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Briefcase, Calendar, ArrowRight } from "lucide-react";
 
 const experiences = [
@@ -41,23 +41,23 @@ export default function ExperienceSection() {
   return (
     <section id="experience" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.p
+        <Motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
         >
           CAREER
-        </motion.p>
-        <motion.h2
+        </Motion.p>
+        <Motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em] mb-4"
         >
           Experience
-        </motion.h2>
-        <motion.div
+        </Motion.h2>
+        <Motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -70,9 +70,9 @@ export default function ExperienceSection() {
           </div>
           <div className="glass-light rounded-xl px-5 py-3 flex flex-col items-center">
             <span className="text-2xl font-heading font-black text-primary">10+</span>
-            <span className="text-[10px] font-mono tracking-widest text-muted-foreground mt-1">PROJECT</span>
+            <span className="text-[10px] font-mono tracking-widest text-muted-foreground mt-1">PROJECTS</span>
           </div>
-        </motion.div>
+        </Motion.div>
 
         {/* Timeline */}
         <div className="relative">
@@ -81,7 +81,7 @@ export default function ExperienceSection() {
 
           <div className="space-y-8">
             {experiences.map((exp, i) => (
-              <motion.div
+              <Motion.div
                 key={exp.org}
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -133,7 +133,7 @@ export default function ExperienceSection() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </Motion.div>
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion as Motion } from "framer-motion";
-import { MapPin, Clock, Coffee, Code2, Briefcase, GraduationCap } from "lucide-react";
+import { MapPin, Clock, Coffee, Code2, Briefcase, GraduationCap, Github, ArrowUpRight } from "lucide-react";
 
 const SKYLINE_IMG = "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/7acdeece5_generated_bd81da44.png";
 
@@ -70,7 +70,7 @@ export default function AboutSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="md:col-span-2 lg:col-span-2 row-span-2 glass-light rounded-2xl p-8 flex flex-col justify-center"
+            className="md:col-span-2 lg:col-span-2 row-span-2 glass-light rounded-2xl p-8 flex flex-col justify-center transition-transform duration-300 hover:-translate-y-1"
           >
             <h3 className="text-2xl font-heading font-bold mb-4">
               Building from the <span className="text-accent">Highlands</span>
@@ -103,7 +103,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="row-span-1"
+            className="row-span-1 transition-transform duration-300 hover:-translate-y-1"
           >
             <AddisClockWidget />
           </Motion.div>
@@ -114,7 +114,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.15 }}
-            className="row-span-1 rounded-2xl overflow-hidden relative"
+            className="row-span-1 rounded-2xl overflow-hidden relative transition-transform duration-300 hover:-translate-y-1"
           >
             <img
               src={SKYLINE_IMG}
@@ -137,7 +137,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 + i * 0.08 }}
-              className="glass-light rounded-2xl p-5 flex flex-col justify-between"
+              className="glass-light rounded-2xl p-5 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1"
             >
               <stat.icon size={18} className="text-primary" />
               <div>
@@ -149,6 +149,91 @@ export default function AboutSection() {
             </Motion.div>
           ))}
         </div>
+
+        {/* GitHub Activity */}
+        <Motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                <Github size={18} className="text-primary" />
+              </div>
+              <div>
+                <p className="font-mono text-xs tracking-[0.3em] text-primary">
+                  GITHUB ACTIVITY
+                </p>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  Live contribution stats
+                </p>
+              </div>
+            </div>
+            <a
+              href="https://github.com/gulumawakuma"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group hidden sm:flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-accent/50 hover:bg-accent/5 transition-colors"
+            >
+              <span className="text-xs font-mono tracking-wider text-foreground/80 group-hover:text-accent transition-colors">
+                @gulumawakuma
+              </span>
+              <ArrowUpRight size={14} className="text-muted-foreground group-hover:text-accent transition-colors" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <Motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05 }}
+              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+            >
+              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <img
+                src="https://github-readme-stats-fast.vercel.app/api?username=gulumawakuma&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&bg_color=00000000&title_color=e8b73b&text_color=94a3b8&icon_color=1077a3&ring_color=e8b73b"
+                alt="GitHub stats for gulumawakuma"
+                loading="lazy"
+                className="relative w-full max-w-md"
+              />
+            </Motion.div>
+
+            <Motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 }}
+              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
+            >
+              <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <img
+                src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=gulumawakuma&layout=compact&theme=tokyonight&hide_border=true&langs_count=8&bg_color=00000000&title_color=e8b73b&text_color=94a3b8"
+                alt="Top languages for gulumawakuma"
+                loading="lazy"
+                className="relative w-full max-w-md"
+              />
+            </Motion.div>
+
+            <Motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.18 }}
+              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1 lg:col-span-2"
+            >
+              <div className="absolute inset-x-0 -bottom-16 h-40 bg-gradient-to-t from-primary/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <img
+                src="https://streak-stats.demolab.com/?user=gulumawakuma&theme=tokyonight&hide_border=true&background=00000000&ring=e8b73b&fire=e8b73b&currStreakLabel=e8b73b&sideLabels=94a3b8&dates=64748b"
+                alt="GitHub streak for gulumawakuma"
+                loading="lazy"
+                className="relative w-full max-w-xl"
+              />
+            </Motion.div>
+          </div>
+        </Motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
 
@@ -74,22 +74,22 @@ export default function ProjectsSection() {
       <div className="max-w-7xl mx-auto px-6 mb-12">
         <div className="flex items-end justify-between">
           <div>
-            <motion.p
+            <Motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
             >
               SELECTED WORK
-            </motion.p>
-            <motion.h2
+            </Motion.p>
+            <Motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em]"
             >
               Projects
-            </motion.h2>
+            </Motion.h2>
           </div>
 
           <div className="hidden sm:flex gap-2">
@@ -112,7 +112,7 @@ export default function ProjectsSection() {
       {/* Horizontal scroll gallery */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto hide-scrollbar px-6 lg:px-[calc((100vw-1280px)/2+1.5rem)] snap-x snap-mandatory pb-4"
+        className="flex gap-6 overflow-x-auto overflow-y-hidden hide-scrollbar px-6 lg:px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] scroll-px-6 lg:scroll-px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] snap-x snap-mandatory pb-4"
       >
         {projects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
