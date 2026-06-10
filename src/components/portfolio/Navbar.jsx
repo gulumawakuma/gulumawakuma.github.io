@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
@@ -6,8 +7,9 @@ import { useActiveSection } from "../../hooks/useActiveSection";
 import { scrollToSection, usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 const RESUME_URL = "/resume.pdf";
+const CASE_STUDIES_PATH = "/case-studies";
 
-const navItems = [
+const sectionNavItems = [
   { label: "Home", href: "#home" },
   { label: "Projects", href: "#projects" },
   { label: "Stack", href: "#stack" },
@@ -16,7 +18,7 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const sectionIds = navItems.map((item) => item.href.slice(1));
+const sectionIds = sectionNavItems.map((item) => item.href.slice(1));
 
 function navLinkClass(isActive) {
   return isActive
@@ -33,7 +35,11 @@ function mobileNavLinkClass(isActive) {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const activeSection = useActiveSection(sectionIds);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
+  const isCaseStudiesActive = location.pathname.startsWith(CASE_STUDIES_PATH);
+  const activeSection = useActiveSection(isHome ? sectionIds : []);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -49,9 +55,13 @@ export default function Navbar() {
     };
   }, [mobileOpen]);
 
-  const handleClick = (href) => {
+  const handleSectionClick = (href) => {
     setMobileOpen(false);
-    scrollToSection(href, prefersReducedMotion);
+    if (isHome) {
+      scrollToSection(href, prefersReducedMotion);
+    } else {
+      navigate("/", { state: { scrollTo: href } });
+    }
   };
 
   return (
@@ -66,7 +76,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Motion.button
-            onClick={() => handleClick("#home")}
+            onClick={() => handleSectionClick("#home")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="font-mono text-sm tracking-widest text-accent font-semibold cursor-pointer"
@@ -76,22 +86,31 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.slice(1);
+            {sectionNavItems.map((item) => {
+              const isActive = isHome && activeSection === item.href.slice(1);
               return (
-              <Motion.button
-                key={item.label}
-                onClick={() => handleClick(item.href)}
-                whileHover={{ scale: isActive ? 1 : 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className={navLinkClass(isActive)}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {item.label}
-              </Motion.button>
-            );
+                <Motion.button
+                  key={item.label}
+                  onClick={() => handleSectionClick(item.href)}
+                  whileHover={{ scale: isActive ? 1 : 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className={navLinkClass(isActive)}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Motion.button>
+              );
             })}
+            <Motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                to={CASE_STUDIES_PATH}
+                className={navLinkClass(isCaseStudiesActive)}
+                aria-current={isCaseStudiesActive ? "page" : undefined}
+              >
+                Case Studies
+              </Link>
+            </Motion.div>
             <Motion.a
               href={RESUME_URL}
               target="_blank"
@@ -106,7 +125,7 @@ export default function Navbar() {
             </Motion.a>
             <ThemeToggle className="ml-1" />
             <Motion.button
-              onClick={() => handleClick("#contact")}
+              onClick={() => handleSectionClick("#contact")}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -154,7 +173,7 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-between px-6 py-5 border-b border-border">
                 <button
-                  onClick={() => handleClick("#home")}
+                  onClick={() => handleSectionClick("#home")}
                   className="font-mono text-sm tracking-widest text-accent font-semibold cursor-pointer"
                 >
                   GW<span className="text-primary">.</span>
@@ -169,22 +188,36 @@ export default function Navbar() {
               </div>
 
               <nav className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
-                {navItems.map((item, i) => {
-                  const isActive = activeSection === item.href.slice(1);
+                {sectionNavItems.map((item, i) => {
+                  const isActive = isHome && activeSection === item.href.slice(1);
                   return (
-                  <Motion.button
-                    key={item.label}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    onClick={() => handleClick(item.href)}
-                    className={mobileNavLinkClass(isActive)}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {item.label}
-                  </Motion.button>
-                );
+                    <Motion.button
+                      key={item.label}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      onClick={() => handleSectionClick(item.href)}
+                      className={mobileNavLinkClass(isActive)}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {item.label}
+                    </Motion.button>
+                  );
                 })}
+                <Motion.div
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: sectionNavItems.length * 0.05 }}
+                >
+                  <Link
+                    to={CASE_STUDIES_PATH}
+                    onClick={() => setMobileOpen(false)}
+                    className={mobileNavLinkClass(isCaseStudiesActive)}
+                    aria-current={isCaseStudiesActive ? "page" : undefined}
+                  >
+                    Case Studies
+                  </Link>
+                </Motion.div>
               </nav>
 
               <div className="p-4 border-t border-border flex flex-col gap-2">
@@ -199,7 +232,7 @@ export default function Navbar() {
                   Resume
                 </a>
                 <button
-                  onClick={() => handleClick("#contact")}
+                  onClick={() => handleSectionClick("#contact")}
                   className="w-full px-4 py-3 rounded-xl bg-accent text-accent-foreground text-sm font-semibold cursor-pointer"
                 >
                   Hire Me

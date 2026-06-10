@@ -1,9 +1,21 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 export default function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
+  const hasCaseStudy = Boolean(project.caseStudySlug);
+
+  const ctaContent = (
+    <Motion.div
+      className="flex items-center gap-2 text-accent text-sm font-medium"
+      animate={{ x: hovered ? 4 : 0 }}
+    >
+      <span>{hasCaseStudy ? "Read case study" : "View Project"}</span>
+      <ChevronRight size={14} />
+    </Motion.div>
+  );
 
   return (
     <Motion.div
@@ -57,13 +69,16 @@ export default function ProjectCard({ project, index }) {
           </p>
 
           <div className="flex items-center justify-between mt-auto">
-            <Motion.div
-              className="flex items-center gap-2 text-accent text-sm font-medium"
-              animate={{ x: hovered ? 4 : 0 }}
-            >
-              <span>View Project</span>
-              <ChevronRight size={14} />
-            </Motion.div>
+            {hasCaseStudy ? (
+              <Link
+                to={`/case-studies/${project.caseStudySlug}`}
+                className="cursor-pointer"
+              >
+                {ctaContent}
+              </Link>
+            ) : (
+              ctaContent
+            )}
             <div className="flex items-center gap-2">
               {project.type === "team" && (
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-accent/30 text-accent tracking-wider">
