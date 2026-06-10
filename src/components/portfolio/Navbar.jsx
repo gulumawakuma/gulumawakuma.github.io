@@ -24,6 +24,13 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const handleClick = (href) => {
     setMobileOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
@@ -92,48 +99,88 @@ export default function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               className="text-foreground p-2 cursor-pointer"
             >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
       </Motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <Motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 glass flex flex-col items-center justify-center gap-6"
-          >
-            {navItems.map((item, i) => (
-              <Motion.button
-                key={item.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 }}
-                onClick={() => handleClick(item.href)}
-                className="text-2xl font-heading font-bold text-foreground cursor-pointer"
-              >
-                {item.label}
-              </Motion.button>
-            ))}
-            <Motion.a
-              href={RESUME_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navItems.length * 0.08 }}
-              className="inline-flex items-center gap-2 text-lg font-mono tracking-wider text-accent cursor-pointer"
+          <>
+            <Motion.button
+              type="button"
+              aria-label="Close menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-background/70 backdrop-blur-[2px] md:hidden cursor-pointer"
+            />
+
+            <Motion.aside
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 32 }}
+              className="fixed top-0 left-0 bottom-0 z-50 w-[min(300px,85vw)] glass border-r border-border flex flex-col md:hidden shadow-xl"
             >
-              <Download size={18} />
-              Download Resume
-            </Motion.a>
-          </Motion.div>
+              <div className="flex items-center justify-between px-6 py-5 border-b border-border">
+                <button
+                  onClick={() => handleClick("#home")}
+                  className="font-mono text-sm tracking-widest text-accent font-semibold cursor-pointer"
+                >
+                  GW<span className="text-primary">.</span>
+                </button>
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                  className="text-muted-foreground hover:text-foreground p-1 cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <nav className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
+                {navItems.map((item, i) => (
+                  <Motion.button
+                    key={item.label}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    onClick={() => handleClick(item.href)}
+                    className="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+                  >
+                    {item.label}
+                  </Motion.button>
+                ))}
+              </nav>
+
+              <div className="p-4 border-t border-border flex flex-col gap-2">
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-border text-sm font-semibold hover:bg-muted/50 transition-colors cursor-pointer"
+                >
+                  <Download size={16} />
+                  Resume
+                </a>
+                <button
+                  onClick={() => handleClick("#contact")}
+                  className="w-full px-4 py-3 rounded-xl bg-accent text-accent-foreground text-sm font-semibold cursor-pointer"
+                >
+                  Hire Me
+                </button>
+              </div>
+            </Motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>
