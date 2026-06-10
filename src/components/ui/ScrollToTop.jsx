@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
+import { getScrollBehavior, usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -13,7 +15,7 @@ export default function ScrollToTop() {
   }, []);
 
   const scrollTop = () =>
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: getScrollBehavior(prefersReducedMotion) });
 
   return (
     <AnimatePresence>

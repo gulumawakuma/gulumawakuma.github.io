@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
+import { useActiveSection } from "../../hooks/useActiveSection";
+import { scrollToSection, usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 const RESUME_URL = "/resume.pdf";
 
@@ -14,9 +16,25 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const sectionIds = navItems.map((item) => item.href.slice(1));
+
+function navLinkClass(isActive) {
+  return isActive
+    ? "px-4 py-2 text-sm font-medium text-foreground bg-primary/10 border border-primary/25 rounded-full cursor-pointer"
+    : "px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted/50 cursor-pointer";
+}
+
+function mobileNavLinkClass(isActive) {
+  return isActive
+    ? "w-full text-left px-4 py-3 rounded-xl text-base font-medium text-foreground bg-primary/10 border border-primary/20 cursor-pointer"
+    : "w-full text-left px-4 py-3 rounded-xl text-base font-medium text-foreground hover:bg-muted/60 transition-colors cursor-pointer";
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const activeSection = useActiveSection(sectionIds);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -33,7 +51,7 @@ export default function Navbar() {
 
   const handleClick = (href) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection(href, prefersReducedMotion);
   };
 
   return (
@@ -58,18 +76,22 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.slice(1);
+              return (
               <Motion.button
                 key={item.label}
                 onClick={() => handleClick(item.href)}
-                whileHover={{ scale: 1.08 }}
+                whileHover={{ scale: isActive ? 1 : 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted/50 cursor-pointer"
+                className={navLinkClass(isActive)}
+                aria-current={isActive ? "page" : undefined}
               >
                 {item.label}
               </Motion.button>
-            ))}
+            );
+            })}
             <Motion.a
               href={RESUME_URL}
               target="_blank"
@@ -147,18 +169,22 @@ export default function Navbar() {
               </div>
 
               <nav className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-1">
-                {navItems.map((item, i) => (
+                {navItems.map((item, i) => {
+                  const isActive = activeSection === item.href.slice(1);
+                  return (
                   <Motion.button
                     key={item.label}
                     initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                     onClick={() => handleClick(item.href)}
-                    className="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+                    className={mobileNavLinkClass(isActive)}
+                    aria-current={isActive ? "page" : undefined}
                   >
                     {item.label}
                   </Motion.button>
-                ))}
+                );
+                })}
               </nav>
 
               <div className="p-4 border-t border-border flex flex-col gap-2">

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion as M } from "framer-motion";
 import { ArrowDown, MapPin, Download } from "lucide-react";
+import { scrollToSection, usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 
 const RESUME_URL = "/resume.pdf";
 
@@ -16,6 +17,8 @@ const coreTruths = [
 ];
 
 export default function HeroSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
@@ -37,8 +40,11 @@ export default function HeroSection() {
           >
             <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-border light-card">
               <img
-                src='/hero.png'
+                src="/hero.jpg"
                 alt="Guluma Wakuma - Full-Stack & iOS Developer"
+                width={800}
+                height={800}
+                fetchPriority="high"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 hero-portrait-overlay pointer-events-none" />
@@ -138,7 +144,7 @@ export default function HeroSection() {
                 Download Resume
               </M.a>
               <M.button
-                onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => scrollToSection("#contact", prefersReducedMotion)}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-foreground font-mono font-semibold tracking-wider text-sm hover:border-primary/50 hover:bg-muted/50 transition-colors cursor-pointer"

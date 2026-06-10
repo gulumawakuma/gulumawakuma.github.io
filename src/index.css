@@ -250,3 +250,25 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    body {
+        transition: none;
+    }
+
+    .glass,
+    .glass-light {
+        transition: none;
+    }
+
+    .animate-fadeIn,
+    .animate-pulse-soft,
+    .animate-spin-slow,
+    .animate-pulse {
+        animation: none !important;
+    }
+}
