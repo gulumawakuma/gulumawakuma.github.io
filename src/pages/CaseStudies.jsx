@@ -79,17 +79,17 @@ export default function CaseStudies() {
                     {study.summary}
                   </p>
 
-                  <div className="flex items-center justify-between gap-4 mt-auto pt-4 border-t border-border/60">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4 mt-auto pt-4 border-t border-border/60">
                     <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
                       {study.role}
                     </span>
                     <Link
                       to={`/case-studies/${study.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:gap-3 transition-all"
+                      className="inline-flex items-center gap-1 sm:gap-2 text-[11px] sm:text-sm font-medium text-accent hover:gap-2 sm:hover:gap-3 transition-all shrink-0"
                     >
-                      <BookOpen size={16} />
+                      <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 shrink-0" />
                       Read case study
-                      <ArrowUpRight size={14} />
+                      <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
                     </Link>
                   </div>
                 </div>

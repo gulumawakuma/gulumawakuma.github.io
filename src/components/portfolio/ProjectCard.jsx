@@ -9,11 +9,11 @@ export default function ProjectCard({ project, index }) {
 
   const ctaContent = (
     <Motion.div
-      className="flex items-center gap-2 text-accent text-sm font-medium"
+      className="flex items-center gap-1 sm:gap-2 text-accent text-[11px] sm:text-sm font-medium"
       animate={{ x: hovered ? 4 : 0 }}
     >
       <span>{hasCaseStudy ? "Read case study" : "View Project"}</span>
-      <ChevronRight size={14} />
+      <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
     </Motion.div>
   );
 
