@@ -42,6 +42,7 @@
     --glass-light-blur: 0px;
     --glass-light-shadow: 0 1px 8px rgba(26, 35, 50, 0.05);
     --grid-line: hsl(200 35% 45% / 0.06);
+    --page-grid-line: hsl(200 35% 45% / 0.035);
     --hero-gradient: linear-gradient(160deg, #f5f7fa 0%, #eef2f6 60%, rgba(14, 109, 148, 0.05) 100%);
     --hero-overlay: linear-gradient(to top, rgba(245, 247, 250, 0.4) 0%, transparent 40%);
     --hero-glow: none;
@@ -74,6 +75,7 @@
     --glass-light-blur: 16px;
     --glass-light-shadow: none;
     --grid-line: hsl(198 82% 35% / 0.03);
+    --page-grid-line: hsl(198 82% 35% / 0.022);
     --hero-gradient: linear-gradient(135deg, #08111d 0%, #08111d 55%, rgba(16, 119, 163, 0.12) 100%);
     --hero-overlay: linear-gradient(to top, rgba(8, 17, 29, 0.82) 0%, transparent 50%);
     --hero-glow: radial-gradient(ellipse 70% 50% at 80% 20%, rgba(16, 119, 163, 0.15), transparent);
@@ -166,6 +168,19 @@
         linear-gradient(var(--grid-line) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 80px 80px;
+}
+
+.page-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(var(--page-grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--page-grid-line) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 85%, transparent 100%);
 }
 
 .hero-portrait-overlay {

@@ -11,16 +11,19 @@ import ScrollToTop from "../components/ui/ScrollToTop";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <Navbar />
-      <HeroSection />
-      <ProjectsSection />
-      <TechStackSection />
-      <ExperienceSection />
-      <AboutSection />
-      <ContactSection />
-      <Footer />
-      <ScrollToTop />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      <div className="page-grid" aria-hidden="true" />
+      <div className="relative z-[1]">
+        <Navbar />
+        <HeroSection />
+        <ProjectsSection />
+        <TechStackSection />
+        <ExperienceSection />
+        <AboutSection />
+        <ContactSection />
+        <Footer />
+        <ScrollToTop />
+      </div>
     </div>
   );
 }

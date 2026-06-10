@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-import { MapPin, Clock, Coffee, Code2, Briefcase, GraduationCap, Github, ArrowUpRight } from "lucide-react";
+import { MapPin, Coffee, Code2, Briefcase, GraduationCap, Github, ArrowUpRight } from "lucide-react";
 import { useTheme } from "../../hooks/useTheme";
 
 const SKYLINE_IMG = "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/7acdeece5_generated_bd81da44.png";
 
-function AddisClockWidget() {
+function AddisClockWidget({ compact = false }) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -19,12 +19,12 @@ function AddisClockWidget() {
   const seconds = addisTime.getSeconds().toString().padStart(2, "0");
 
   return (
-    <div className="glass-light rounded-2xl p-6 flex flex-col items-center justify-center h-full">
+    <div className={`flex flex-col items-center justify-center text-center ${compact ? "py-2" : ""}`}>
       <MapPin size={16} className="text-accent mb-2" />
-      <p className="text-[10px] font-mono tracking-[0.3em] text-muted-foreground mb-3">
-        ADDIS ABABA
+      <p className="text-[9px] sm:text-[10px] font-mono tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground mb-3">
+        ADDIS ABABA, ET
       </p>
-      <div className="font-mono text-4xl font-bold tracking-wider text-foreground">
+      <div className="font-mono text-3xl sm:text-4xl font-bold tracking-wider text-foreground">
         {hours}
         <span className="text-primary animate-pulse">:</span>
         {minutes}
@@ -36,11 +36,36 @@ function AddisClockWidget() {
   );
 }
 
+function StatCard({ stat, index }) {
+  return (
+    <Motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06 }}
+      className="glass-light rounded-2xl p-5 sm:p-6 flex flex-col items-center text-center h-full"
+    >
+      <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
+        <stat.icon size={20} className="text-primary" />
+      </div>
+      <p className="text-3xl sm:text-4xl font-heading font-black text-foreground leading-none">
+        {stat.value}
+      </p>
+      <p className="text-[10px] sm:text-xs font-mono text-muted-foreground tracking-wider mt-2 uppercase">
+        {stat.label}
+      </p>
+      <p className="text-xs text-muted-foreground/70 mt-2 leading-snug max-w-[140px]">
+        {stat.detail}
+      </p>
+    </Motion.div>
+  );
+}
+
 const stats = [
-  { icon: Code2, label: "Projects Shipped", value: "10+" },
-  { icon: Coffee, label: "Cups of Buna", value: "∞" },
-  { icon: Briefcase, label: "Years Coding", value: "3+" },
-  { icon: GraduationCap, label: "CSE Degree", value: "BSc" },
+  { icon: Code2, label: "Projects Shipped", value: "10+", detail: "Web, iOS & full-stack" },
+  { icon: Coffee, label: "Cups of Buna", value: "∞", detail: "Ethiopian coffee powered" },
+  { icon: Briefcase, label: "Years Coding", value: "3+", detail: "Professional experience" },
+  { icon: GraduationCap, label: "CSE Degree", value: "BSc", detail: "Computer Science" },
 ];
 
 export default function AboutSection() {
@@ -60,13 +85,13 @@ export default function AboutSection() {
   }, [theme]);
 
   return (
-    <section id="about" className="py-32 relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="py-20 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <Motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
+          className="font-mono text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-primary mb-4"
         >
           THE PERSON
         </Motion.p>
@@ -74,115 +99,99 @@ export default function AboutSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em] mb-16"
+          className="text-3xl sm:text-5xl lg:text-6xl font-heading font-black tracking-[-0.04em] mb-10 sm:mb-16"
         >
           About Me
         </Motion.h2>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[180px]">
-          {/* Bio - Large card */}
+        {/* Bio + Location */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <Motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="md:col-span-2 lg:col-span-2 row-span-2 glass-light rounded-2xl p-8 flex flex-col justify-center transition-transform duration-300 hover:-translate-y-1"
+            className="lg:col-span-2 glass-light rounded-2xl p-5 sm:p-6 md:p-8 min-w-0"
           >
-            <h3 className="text-2xl font-heading font-bold mb-4">
+            <h3 className="text-xl sm:text-2xl font-heading font-bold mb-3 sm:mb-4 leading-snug">
               Building from the <span className="text-accent">Highlands</span>
             </h3>
-            <p className="text-muted-foreground leading-relaxed mb-4">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-4">
               I'm Guluma Wakuma — a Full-Stack &amp; iOS Software Engineer based in Addis Ababa, Ethiopia. 
               With strong expertise in React, Node.js, Swift, SwiftUI, and UIKit, I create clean, 
               maintainable, performance-driven code across the full stack.
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3 sm:mb-4">
               I'm comfortable taking projects from concept to production — designing responsive frontends, 
               building robust RESTful APIs, and delivering polished native iOS apps. I thrive on solving 
               complex real-world problems and collaborating with cross-functional teams.
             </p>
-            <p className="text-sm font-mono text-primary/80 border-l-2 border-primary/40 pl-4 italic">
+            <p className="text-xs sm:text-sm font-mono text-primary/80 border-l-2 border-primary/40 pl-3 sm:pl-4 italic leading-relaxed">
               "Code with clarity, build for purpose, innovate with passion."
             </p>
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mt-4 sm:mt-5 flex flex-wrap gap-2">
               {["Full-Time", "Freelance", "Onsite"].map(t => (
-                <span key={t} className="px-3 py-1 text-[10px] font-mono tracking-widest border border-accent/40 text-accent rounded-full">
+                <span key={t} className="px-2.5 sm:px-3 py-1 text-[9px] sm:text-[10px] font-mono tracking-wide sm:tracking-widest border border-accent/40 text-accent rounded-full">
                   OPEN TO {t.toUpperCase()}
                 </span>
               ))}
             </div>
           </Motion.div>
 
-          {/* Clock Widget */}
           <Motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="row-span-1 transition-transform duration-300 hover:-translate-y-1"
+            className="glass-light rounded-2xl overflow-hidden flex flex-col min-h-[320px]"
           >
-            <AddisClockWidget />
-          </Motion.div>
-
-          {/* Skyline */}
-          <Motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="row-span-1 rounded-2xl overflow-hidden relative transition-transform duration-300 hover:-translate-y-1"
-          >
-            <img
-              src={SKYLINE_IMG}
-              alt="Addis Ababa skyline at twilight"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 skyline-overlay pointer-events-none" />
-            <div className="absolute bottom-3 left-4">
-              <p className="text-[10px] font-mono tracking-widest text-foreground/80">
-                HOME BASE
-              </p>
+            <div className="p-5 sm:p-6 border-b border-border/50 shrink-0">
+              <AddisClockWidget compact />
             </div>
-          </Motion.div>
-
-          {/* Stats */}
-          {stats.map((stat, i) => (
-            <Motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + i * 0.08 }}
-              className="glass-light rounded-2xl p-5 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1"
-            >
-              <stat.icon size={18} className="text-primary" />
-              <div>
-                <p className="text-2xl font-heading font-bold text-foreground">{stat.value}</p>
-                <p className="text-xs font-mono text-muted-foreground tracking-wider mt-1">
-                  {stat.label.toUpperCase()}
+            <div className="relative flex-1 min-h-[160px]">
+              <img
+                src={SKYLINE_IMG}
+                alt="Addis Ababa skyline at twilight"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 skyline-overlay pointer-events-none" />
+              <div className="absolute bottom-3 left-4">
+                <p className="text-[10px] font-mono tracking-widest text-foreground/80">
+                  HOME BASE
                 </p>
               </div>
-            </Motion.div>
-          ))}
+            </div>
+          </Motion.div>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-4">
+          <p className="font-mono text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-primary mb-4 px-1">
+            QUICK FACTS
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((stat, i) => (
+              <StatCard key={stat.label} stat={stat} index={i} />
+            ))}
+          </div>
         </div>
 
         {/* GitHub Activity */}
         <Motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-20"
+          className="mt-12 sm:mt-20"
         >
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 shrink-0 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                 <Github size={18} className="text-primary" />
               </div>
-              <div>
-                <p className="font-mono text-xs tracking-[0.3em] text-primary">
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] text-primary">
                   GITHUB ACTIVITY
                 </p>
-                <p className="text-sm text-muted-foreground mt-0.5">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
                   Live contribution stats
                 </p>
               </div>
@@ -201,53 +210,35 @@ export default function AboutSection() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <Motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 }}
-              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
-            >
-              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
+            <div className="group relative glass-light rounded-2xl p-4 sm:p-6 flex items-center justify-center min-h-[180px] transition-colors duration-300 hover:border-primary/30">
+              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block pointer-events-none" />
               <img
                 src={githubStats.stats}
                 alt="GitHub stats for gulumawakuma"
                 loading="lazy"
-                className="relative w-full max-w-md"
+                className="relative w-full min-w-0 max-w-md h-auto"
               />
-            </Motion.div>
+            </div>
 
-            <Motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.12 }}
-              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
-            >
-              <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
+            <div className="group relative glass-light rounded-2xl p-4 sm:p-6 flex items-center justify-center min-h-[180px] transition-colors duration-300 hover:border-primary/30">
+              <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block pointer-events-none" />
               <img
                 src={githubStats.langs}
                 alt="Top languages for gulumawakuma"
                 loading="lazy"
-                className="relative w-full max-w-md"
+                className="relative w-full min-w-0 max-w-md h-auto"
               />
-            </Motion.div>
+            </div>
 
-            <Motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.18 }}
-              className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1 lg:col-span-2"
-            >
-              <div className="absolute inset-x-0 -bottom-16 h-40 bg-gradient-to-t from-primary/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
+            <div className="group relative glass-light rounded-2xl p-4 sm:p-6 flex items-center justify-center min-h-[200px] transition-colors duration-300 hover:border-primary/30 lg:col-span-2">
+              <div className="absolute inset-x-0 -bottom-16 h-40 bg-gradient-to-t from-primary/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block pointer-events-none" />
               <img
                 src={githubStats.streak}
                 alt="GitHub streak for gulumawakuma"
                 loading="lazy"
-                className="relative w-full max-w-xl"
+                className="relative w-full min-w-0 max-w-xl h-auto"
               />
-            </Motion.div>
+            </div>
           </div>
         </Motion.div>
       </div>
