@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion as Motion } from "framer-motion";
 import { MapPin, Clock, Coffee, Code2, Briefcase, GraduationCap, Github, ArrowUpRight } from "lucide-react";
+import { useTheme } from "../../hooks/useTheme";
 
 const SKYLINE_IMG = "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/7acdeece5_generated_bd81da44.png";
 
@@ -43,6 +44,21 @@ const stats = [
 ];
 
 export default function AboutSection() {
+  const { theme } = useTheme();
+
+  const githubStats = useMemo(() => {
+    const isDark = theme === "dark";
+    const titleColor = isDark ? "e8b73b" : "92680a";
+    const textColor = isDark ? "94a3b8" : "5a6b7d";
+    const datesColor = isDark ? "64748b" : "94a3b8";
+
+    return {
+      stats: `https://github-readme-stats-fast.vercel.app/api?username=gulumawakuma&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}&icon_color=1077a3&ring_color=${titleColor}`,
+      langs: `https://github-readme-stats-fast.vercel.app/api/top-langs/?username=gulumawakuma&layout=compact&theme=tokyonight&hide_border=true&langs_count=8&bg_color=00000000&title_color=${titleColor}&text_color=${textColor}`,
+      streak: `https://streak-stats.demolab.com/?user=gulumawakuma&theme=tokyonight&hide_border=true&background=00000000&ring=${titleColor}&fire=${titleColor}&currStreakLabel=${titleColor}&sideLabels=${textColor}&dates=${datesColor}`,
+    };
+  }, [theme]);
+
   return (
     <section id="about" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -121,7 +137,7 @@ export default function AboutSection() {
               alt="Addis Ababa skyline at twilight"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            <div className="absolute inset-0 skyline-overlay pointer-events-none" />
             <div className="absolute bottom-3 left-4">
               <p className="text-[10px] font-mono tracking-widest text-foreground/80">
                 HOME BASE
@@ -192,9 +208,9 @@ export default function AboutSection() {
               transition={{ delay: 0.05 }}
               className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
             >
-              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -top-16 -right-16 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
               <img
-                src="https://github-readme-stats-fast.vercel.app/api?username=gulumawakuma&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&bg_color=00000000&title_color=e8b73b&text_color=94a3b8&icon_color=1077a3&ring_color=e8b73b"
+                src={githubStats.stats}
                 alt="GitHub stats for gulumawakuma"
                 loading="lazy"
                 className="relative w-full max-w-md"
@@ -208,9 +224,9 @@ export default function AboutSection() {
               transition={{ delay: 0.12 }}
               className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1"
             >
-              <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-accent/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
               <img
-                src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=gulumawakuma&layout=compact&theme=tokyonight&hide_border=true&langs_count=8&bg_color=00000000&title_color=e8b73b&text_color=94a3b8"
+                src={githubStats.langs}
                 alt="Top languages for gulumawakuma"
                 loading="lazy"
                 className="relative w-full max-w-md"
@@ -224,9 +240,9 @@ export default function AboutSection() {
               transition={{ delay: 0.18 }}
               className="group relative glass-light rounded-2xl p-6 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:-translate-y-1 lg:col-span-2"
             >
-              <div className="absolute inset-x-0 -bottom-16 h-40 bg-gradient-to-t from-primary/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-x-0 -bottom-16 h-40 bg-gradient-to-t from-primary/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden dark:block" />
               <img
-                src="https://streak-stats.demolab.com/?user=gulumawakuma&theme=tokyonight&hide_border=true&background=00000000&ring=e8b73b&fire=e8b73b&currStreakLabel=e8b73b&sideLabels=94a3b8&dates=64748b"
+                src={githubStats.streak}
                 alt="GitHub streak for gulumawakuma"
                 loading="lazy"
                 className="relative w-full max-w-xl"

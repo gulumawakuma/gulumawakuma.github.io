@@ -109,7 +109,7 @@ export default function ContactSection() {
             className="relative"
           >
             {/* Terminal window */}
-            <div className="rounded-2xl border border-border overflow-hidden bg-card">
+            <div className="rounded-2xl border border-border overflow-hidden bg-card light-card">
               {/* Title bar */}
               <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/30">
                 <div className="flex gap-1.5">

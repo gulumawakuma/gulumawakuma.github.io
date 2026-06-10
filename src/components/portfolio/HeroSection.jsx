@@ -18,14 +18,12 @@ const coreTruths = [
 export default function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10" />
-      
+      {/* Background */}
+      <div className="absolute inset-0 hero-bg" />
+      <div className="absolute inset-0 hero-glow pointer-events-none" />
+
       {/* Grid lines */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(hsl(198 82% 35%) 1px, transparent 1px), linear-gradient(90deg, hsl(198 82% 35%) 1px, transparent 1px)`,
-        backgroundSize: '80px 80px'
-      }} />
+      <div className="absolute inset-0 hero-grid pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 pb-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[80vh]">
@@ -37,20 +35,20 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="relative order-2 lg:order-1"
           >
-            <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden">
+            <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-border light-card">
               <img
                 src='/hero.png'
                 alt="Guluma Wakuma - Full-Stack & iOS Developer"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 hero-portrait-overlay pointer-events-none" />
               
               {/* Location badge */}
               <M.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="absolute bottom-6 left-6 glass-light rounded-full px-4 py-2 flex items-center gap-2"
+                className="absolute bottom-6 left-6 surface-badge rounded-full px-4 py-2 flex items-center gap-2"
               >
                 <MapPin size={14} className="text-accent" />
                 <span className="text-xs font-mono tracking-wider text-foreground/80">

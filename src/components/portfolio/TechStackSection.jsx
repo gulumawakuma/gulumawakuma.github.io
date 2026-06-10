@@ -108,7 +108,7 @@ export default function TechStackSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: pi * 0.15 }}
-              className={`relative rounded-2xl border ${pillar.borderColor} ${pillar.bgColor} p-8 group hover:border-opacity-60 transition-all duration-500`}
+              className={`relative rounded-2xl border ${pillar.borderColor} ${pillar.bgColor} p-8 group hover:border-opacity-60 transition-all duration-500 light-card`}
             >
               {/* Header */}
               <div className="flex items-center gap-3 mb-2">

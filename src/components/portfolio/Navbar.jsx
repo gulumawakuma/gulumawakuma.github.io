@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
+import ThemeToggle from "../ui/ThemeToggle";
 
 const RESUME_URL = "/resume.pdf";
 
@@ -74,6 +75,7 @@ export default function Navbar() {
               <Download size={14} />
               Resume
             </Motion.a>
+            <ThemeToggle className="ml-1" />
             <Motion.button
               onClick={() => handleClick("#contact")}
               whileHover={{ scale: 1.05 }}
@@ -86,12 +88,15 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-foreground p-2 cursor-pointer"
-          >
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-foreground p-2 cursor-pointer"
+            >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
+          </div>
         </div>
       </Motion.nav>
 

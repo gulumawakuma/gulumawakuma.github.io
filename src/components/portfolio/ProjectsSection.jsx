@@ -95,13 +95,13 @@ export default function ProjectsSection() {
           <div className="hidden sm:flex gap-2">
             <button
               onClick={() => scroll("left")}
-              className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
+              className="w-12 h-12 rounded-full border border-border bg-card light-card flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
+              className="w-12 h-12 rounded-full border border-border bg-card light-card flex items-center justify-center hover:bg-muted transition-colors cursor-pointer"
             >
               <ChevronRight size={18} />
             </button>
