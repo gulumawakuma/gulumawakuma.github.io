@@ -1,6 +1,6 @@
 # Guluma Wakuma — Portfolio
 
-Personal portfolio website for **Guluma Wakuma**, a Full-Stack & iOS Software Engineer based in Addis Ababa, Ethiopia.
+Personal portfolio website for **Guluma Wakuma**, a Full-Stack & iOS Software Engineer.
 
 **Live site:** [gulumawakuma.github.io](https://gulumawakuma.github.io)
 
