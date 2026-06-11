@@ -83,10 +83,34 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="font-mono text-xs tracking-[0.3em] text-primary mb-6"
+              className="font-mono text-xs tracking-[0.3em] text-primary mb-4"
             >
               FULL-STACK &amp; iOS SOFTWARE ENGINEER
             </M.p>
+
+            <M.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-3 mb-6"
+            >
+              <span className="inline-flex items-center gap-2 w-fit px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-xs font-mono font-semibold tracking-wide text-foreground">
+                <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+                  {!prefersReducedMotion && (
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                  )}
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                Open to work
+              </span>
+              <span className="text-xs font-mono text-muted-foreground tracking-wide">
+                Full-time · Freelance · Remote
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground/80 tracking-wide">
+                <MapPin size={12} className="text-accent shrink-0" />
+                Addis Ababa · EAT (UTC+3)
+              </span>
+            </M.div>
 
             <h1 className="font-heading font-black text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-[-0.04em] mb-8">
               <M.span

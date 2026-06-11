@@ -1,9 +1,11 @@
 import React from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Lock } from "lucide-react";
 import PageShell from "../components/layout/PageShell";
+import PageMeta from "../components/seo/PageMeta";
 import { getCaseStudyBySlug } from "../data/caseStudies";
+import { getCaseStudyMeta } from "../data/pageMeta";
 
 function SectionBlock({ title, children }) {
   return (
@@ -17,6 +19,7 @@ function SectionBlock({ title, children }) {
 export default function CaseStudyDetail() {
   const { slug } = useParams();
   const study = getCaseStudyBySlug(slug);
+  const meta = getCaseStudyMeta(slug);
 
   if (!study) {
     return <Navigate to="/case-studies" replace />;
@@ -24,6 +27,7 @@ export default function CaseStudyDetail() {
 
   return (
     <PageShell>
+      {meta && <PageMeta {...meta} />}
       <article className="pt-28 sm:pt-32 pb-20 sm:pb-32">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <Link
@@ -72,7 +76,7 @@ export default function CaseStudyDetail() {
               ))}
             </div>
 
-            {(study.links.demo || study.links.github) && (
+            {(study.links?.demo || study.links?.github) && (
               <div className="flex flex-wrap gap-3 mt-6">
                 {study.links.demo && (
                   <a
@@ -96,6 +100,23 @@ export default function CaseStudyDetail() {
                     Source code
                   </a>
                 )}
+              </div>
+            )}
+
+            {study.linkNote && !study.links?.demo && !study.links?.github && (
+              <div className="mt-6 flex items-start gap-3 rounded-2xl border border-border bg-muted/20 p-4 sm:p-5">
+                <Lock size={16} className="text-primary shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground mb-1">Private for now</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{study.linkNote}</p>
+                  <Link
+                    to="/"
+                    state={{ scrollTo: "#contact" }}
+                    className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-accent hover:underline"
+                  >
+                    Request a walkthrough
+                  </Link>
+                </div>
               </div>
             )}
           </Motion.header>

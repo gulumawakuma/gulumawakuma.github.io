@@ -1,21 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ExternalLink, Github, Lock, Mail } from "lucide-react";
+
+function ProjectLinkButton({ href, icon, label }) {
+  const Icon = icon;
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-border text-[10px] sm:text-xs font-mono tracking-wide text-muted-foreground hover:text-accent hover:border-accent/40 transition-colors"
+    >
+      <Icon className="w-3 h-3 shrink-0" />
+      {label}
+    </a>
+  );
+}
 
 export default function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
+  const links = project.links ?? {};
   const hasCaseStudy = Boolean(project.caseStudySlug);
-
-  const ctaContent = (
-    <Motion.div
-      className="flex items-center gap-1 sm:gap-2 text-accent text-[11px] sm:text-sm font-medium"
-      animate={{ x: hovered ? 4 : 0 }}
-    >
-      <span>{hasCaseStudy ? "Read case study" : "View Project"}</span>
-      <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-    </Motion.div>
-  );
+  const hasDemo = Boolean(links.demo);
+  const hasGithub = Boolean(links.github);
+  const hasAppStore = Boolean(links.appStore);
+  const hasPublicLink = hasDemo || hasGithub || hasAppStore;
 
   return (
     <Motion.div
@@ -27,9 +37,9 @@ export default function ProjectCard({ project, index }) {
       onMouseLeave={() => setHovered(false)}
       className="group relative flex-shrink-0 w-[340px] sm:w-[400px] snap-start"
     >
-      <div className="relative h-[480px] rounded-2xl overflow-hidden border border-border bg-card light-card flex flex-col">
+      <div className="relative min-h-[480px] h-full rounded-2xl overflow-hidden border border-border bg-card light-card flex flex-col">
         {/* Image */}
-        <div className="relative h-[52%] shrink-0 overflow-hidden bg-muted">
+        <div className="relative h-[48%] shrink-0 overflow-hidden bg-muted">
           <Motion.img
             src={project.image}
             alt={project.title}
@@ -39,7 +49,6 @@ export default function ProjectCard({ project, index }) {
           />
           <div className="absolute inset-0 project-image-overlay pointer-events-none" />
 
-          {/* Platform badge */}
           <div className="absolute top-4 left-4 surface-badge rounded-full px-3 py-1">
             <span className="text-[10px] font-mono tracking-widest text-foreground/80">
               {project.platform}
@@ -64,29 +73,60 @@ export default function ProjectCard({ project, index }) {
             {project.title}
           </h3>
 
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2 flex-1">
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
             {project.description}
           </p>
 
-          <div className="flex items-center justify-between mt-auto">
-            {hasCaseStudy ? (
-              <Link
-                to={`/case-studies/${project.caseStudySlug}`}
-                className="cursor-pointer"
-              >
-                {ctaContent}
-              </Link>
-            ) : (
-              ctaContent
-            )}
-            <div className="flex items-center gap-2">
+          {project.linkNote && !hasPublicLink && (
+            <p className="text-[10px] sm:text-xs text-muted-foreground/90 leading-relaxed mb-3 line-clamp-3 flex items-start gap-1.5">
+              <Lock className="w-3 h-3 shrink-0 mt-0.5 text-primary/70" />
+              <span>{project.linkNote}</span>
+            </p>
+          )}
+
+          <div className="mt-auto space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              {hasCaseStudy && (
+                <Link
+                  to={`/case-studies/${project.caseStudySlug}`}
+                  className="inline-flex items-center gap-1 sm:gap-2 text-accent text-[11px] sm:text-sm font-medium hover:gap-2 sm:hover:gap-2.5 transition-all"
+                >
+                  <span>Read case study</span>
+                  <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                </Link>
+              )}
+
+              {hasDemo && (
+                <ProjectLinkButton href={links.demo} icon={ExternalLink} label="Demo" />
+              )}
+              {hasGithub && (
+                <ProjectLinkButton href={links.github} icon={Github} label="GitHub" />
+              )}
+              {hasAppStore && (
+                <ProjectLinkButton href={links.appStore} icon={ExternalLink} label="App Store" />
+              )}
+
+              {!hasCaseStudy && !hasPublicLink && (
+                <Link
+                  to="/"
+                  state={{ scrollTo: "#contact" }}
+                  className="inline-flex items-center gap-1 sm:gap-2 text-accent text-[11px] sm:text-sm font-medium hover:gap-2 sm:hover:gap-2.5 transition-all"
+                >
+                  <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                  <span>Request walkthrough</span>
+                  <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
+                </Link>
+              )}
+            </div>
+
+            <div className="flex items-center justify-end gap-2">
               {project.type === "team" && (
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border border-accent/30 text-accent tracking-wider">
                   TEAM
                 </span>
               )}
               {project.role && (
-                <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
+                <span className="text-[10px] font-mono text-muted-foreground tracking-wider text-right">
                   {project.role.toUpperCase()}
                 </span>
               )}

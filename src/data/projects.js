@@ -11,6 +11,12 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/901f2c158_generated_image.png",
     role: "Backend & Admin Dashboard",
     type: "solo",
+    links: {
+      demo: null,
+      github: null,
+    },
+    linkNote:
+      "Demo and repo are private for now — read the case study or contact me for a live walkthrough.",
   },
   {
     title: "ORA",
@@ -24,6 +30,12 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/3633ecbb8_generated_image.png",
     role: "Full-Stack Engineer",
     type: "solo",
+    links: {
+      demo: null,
+      github: null,
+    },
+    linkNote:
+      "Demo and repo are private for now — read the case study or contact me for a live walkthrough.",
   },
   {
     title: "Fetness Track",
@@ -36,6 +48,13 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/26ec04780_generated_image.png",
     role: "iOS Engineer",
     type: "solo",
+    links: {
+      demo: null,
+      github: null,
+      appStore: null,
+    },
+    linkNote:
+      "Not on the App Store yet — contact me for a TestFlight build or feature walkthrough.",
   },
   {
     title: "ABCMS",
@@ -48,6 +67,12 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/6c655b8a7_generated_image.png",
     role: "Team Contributor",
     type: "team",
+    links: {
+      demo: null,
+      github: null,
+    },
+    linkNote:
+      "Internal EAI institute project — source is private. Reach out to discuss my role and architecture.",
   },
   {
     title: "CaseFlow",
@@ -60,6 +85,12 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/d97ec4811_generated_image.png",
     role: "Team Contributor",
     type: "team",
+    links: {
+      demo: null,
+      github: null,
+    },
+    linkNote:
+      "Internal EAI institute project — source is private. Reach out to discuss my role and architecture.",
   },
   {
     title: "Agentic AI",
@@ -72,5 +103,23 @@ export const projects = [
       "https://media.base44.com/images/public/6a252a130a6d44cc87309d9e/f80d3ce39_generated_image.png",
     role: "Team Contributor",
     type: "team",
+    links: {
+      demo: null,
+      github: null,
+    },
+    linkNote:
+      "Internal EAI institute project — source is private. Reach out to discuss my role and architecture.",
   },
 ];
+
+export function getProjectBySlug(slug) {
+  return projects.find((project) => project.slug === slug);
+}
+
+export function getProjectLinks(slug) {
+  const project = getProjectBySlug(slug);
+  return {
+    links: project?.links ?? { demo: null, github: null },
+    linkNote: project?.linkNote ?? null,
+  };
+}

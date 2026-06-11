@@ -18,7 +18,7 @@ Personal portfolio website for **Guluma Wakuma**, a Full-Stack & iOS Software En
 - **React 19** + **Vite 7**
 - **Tailwind CSS 4**
 - **Framer Motion**
-- **React Router** (HashRouter)
+- **React Router** (BrowserRouter)
 - **Sonner** (toast notifications)
 - **Lucide React** (icons)
 
@@ -59,6 +59,28 @@ The contact form uses [Web3Forms](https://web3forms.com) to deliver messages to 
 The access key is injected at **build time**, so set `.env` before running `npm run build` or `npm run deploy`.
 
 Without the key, the form shows an error toast and visitors can still reach you via email or WhatsApp.
+
+## Book a Call Setup
+
+Add a [Cal.com](https://cal.com) or [Calendly](https://calendly.com) link to show **Schedule a 15-min chat** next to **Hire Me** in the navbar.
+
+1. Create a free 15-minute event on Cal.com or Calendly
+2. Add the booking URL to `.env`:
+   ```
+   VITE_BOOKING_URL=https://cal.com/yourname/15min
+   ```
+3. Restart the dev server and rebuild before deploy
+
+The button is hidden until `VITE_BOOKING_URL` is set.
+
+## Sharing & Open Graph
+
+Case study links use clean URLs (no hash) so LinkedIn and other platforms can preview them correctly:
+
+- `https://gulumawakuma.github.io/case-studies/inisra`
+- `https://gulumawakuma.github.io/case-studies/ora`
+
+Each case study gets its own title, description, and image at **build time** (`scripts/generate-static-meta.mjs`). After deploy, paste a case study URL into [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) to refresh the preview cache.
 
 ## Deploy to GitHub Pages
 

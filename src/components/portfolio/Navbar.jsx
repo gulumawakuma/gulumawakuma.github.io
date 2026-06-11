@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Calendar } from "lucide-react";
 import ThemeToggle from "../ui/ThemeToggle";
 import { useActiveSection } from "../../hooks/useActiveSection";
 import { scrollToSection, usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
+import { getBookingUrl } from "../../config/site";
 
 const RESUME_URL = "/resume.pdf";
 const CASE_STUDIES_PATH = "/case-studies";
@@ -41,6 +42,7 @@ export default function Navbar() {
   const isCaseStudiesActive = location.pathname.startsWith(CASE_STUDIES_PATH);
   const activeSection = useActiveSection(isHome ? sectionIds : []);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const bookingUrl = getBookingUrl();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -124,6 +126,22 @@ export default function Navbar() {
               Resume
             </Motion.a>
             <ThemeToggle className="ml-1" />
+            {bookingUrl && (
+              <Motion.a
+                href={bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="ml-2 px-4 py-2 text-sm font-semibold border border-primary/40 text-primary rounded-full hover:bg-primary/10 transition-colors cursor-pointer inline-flex items-center gap-2"
+                title="Schedule a 15-min chat"
+              >
+                <Calendar size={14} />
+                <span className="hidden xl:inline">Schedule a 15-min chat</span>
+                <span className="xl:hidden">15-min chat</span>
+              </Motion.a>
+            )}
             <Motion.button
               onClick={() => handleSectionClick("#contact")}
               whileHover={{ scale: 1.05 }}
@@ -231,6 +249,18 @@ export default function Navbar() {
                   <Download size={16} />
                   Resume
                 </a>
+                {bookingUrl && (
+                  <a
+                    href={bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-primary/40 text-primary text-sm font-semibold hover:bg-primary/10 transition-colors cursor-pointer"
+                  >
+                    <Calendar size={16} />
+                    Schedule a 15-min chat
+                  </a>
+                )}
                 <button
                   onClick={() => handleSectionClick("#contact")}
                   className="w-full px-4 py-3 rounded-xl bg-accent text-accent-foreground text-sm font-semibold cursor-pointer"

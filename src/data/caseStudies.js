@@ -1,3 +1,5 @@
+import { getProjectLinks } from "./projects.js";
+
 export const caseStudies = [
   {
     slug: "inisra",
@@ -39,10 +41,7 @@ export const caseStudies = [
       "Shipped analytics views that give operators actionable occupancy and revenue insight.",
     ],
     stack: ["React", "Node.js", "Express", "PostgreSQL", "REST APIs", "JWT auth"],
-    links: {
-      demo: null,
-      github: null,
-    },
+    ...getProjectLinks("inisra"),
   },
   {
     slug: "ora",
@@ -84,10 +83,7 @@ export const caseStudies = [
       "Built a foundation that scales from one shop to multiple locations on the same codebase.",
     ],
     stack: ["React", "Node.js", "Express", "MongoDB", "REST APIs", "Chart reporting"],
-    links: {
-      demo: null,
-      github: null,
-    },
+    ...getProjectLinks("ora"),
   },
 ];
 

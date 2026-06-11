@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, BookOpen } from "lucide-react";
 import PageShell from "../components/layout/PageShell";
+import PageMeta from "../components/seo/PageMeta";
+import { caseStudiesIndexMeta } from "../data/pageMeta";
 import { caseStudies } from "../data/caseStudies";
 
 export default function CaseStudies() {
   return (
     <PageShell>
+      <PageMeta {...caseStudiesIndexMeta} />
       <section className="pt-28 sm:pt-32 pb-20 sm:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Link
