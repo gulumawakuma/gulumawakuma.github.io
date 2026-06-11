@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import { isContactFormConfigured, sendContactMessage } from "../../lib/sendContactMessage";
 
 const socials = [
   { icon: Github, label: "GitHub", href: "https://github.com/gulumawakuma" },
@@ -16,17 +17,33 @@ const socials = [
 ];
 
 export default function ContactSection() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", botcheck: "" });
   const [sending, setSending] = useState(false);
+  const formConfigured = isContactFormConfigured();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formConfigured) {
+      toast.error("Contact form is not set up yet. Email me directly at gulumawakuma3@gmail.com.");
+      return;
+    }
+
     setSending(true);
-    // Simulate sending
-    await new Promise((r) => setTimeout(r, 1500));
-    setSending(false);
-    toast.success("Message sent! I'll get back to you soon.");
-    setForm({ name: "", email: "", message: "" });
+
+    try {
+      await sendContactMessage(form);
+      toast.success("Message sent! I'll get back to you soon.");
+      setForm({ name: "", email: "", message: "", botcheck: "" });
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again or email gulumawakuma3@gmail.com."
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -127,6 +144,17 @@ export default function ContactSection() {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <input
+                  type="text"
+                  name="botcheck"
+                  value={form.botcheck}
+                  onChange={(e) => setForm({ ...form, botcheck: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] opacity-0 pointer-events-none h-0 w-0"
+                />
+
                 <div className="space-y-1">
                   <label className="text-[10px] font-mono tracking-widest text-primary">
                     $ whoami

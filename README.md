@@ -10,6 +10,7 @@ Personal portfolio website for **Guluma Wakuma**, a Full-Stack & iOS Software En
 - Dark / light theme with persisted preference
 - Projects, tech stack, experience, about, and contact sections
 - GitHub activity stats, resume download, and social links
+- Contact form (Web3Forms) — real email delivery when configured
 - Optimized images and active nav highlighting on scroll
 
 ## Tech Stack
@@ -39,6 +40,25 @@ npm run preview
 # Lint
 npm run lint
 ```
+
+## Contact Form Setup
+
+The contact form uses [Web3Forms](https://web3forms.com) to deliver messages to your inbox.
+
+1. Go to [web3forms.com](https://web3forms.com) and create a free access key with **gulumawakuma3@gmail.com**
+2. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+3. Paste your access key into `.env`:
+   ```
+   VITE_WEB3FORMS_ACCESS_KEY=your_access_key_here
+   ```
+4. Restart the dev server if it is already running (`npm run dev`)
+
+The access key is injected at **build time**, so set `.env` before running `npm run build` or `npm run deploy`.
+
+Without the key, the form shows an error toast and visitors can still reach you via email or WhatsApp.
 
 ## Deploy to GitHub Pages
 
