@@ -135,11 +135,11 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 className="ml-2 px-4 py-2 text-sm font-semibold border border-primary/40 text-primary rounded-full hover:bg-primary/10 transition-colors cursor-pointer inline-flex items-center gap-2"
-                title="Schedule a 15-min chat"
+                title="Schedule a 15-min meeting"
               >
                 <Calendar size={14} />
-                <span className="hidden xl:inline">Schedule a 15-min chat</span>
-                <span className="xl:hidden">15-min chat</span>
+                <span className="hidden xl:inline">Schedule a 15-min meeting</span>
+                <span className="xl:hidden">15-min meeting</span>
               </Motion.a>
             )}
             <Motion.button

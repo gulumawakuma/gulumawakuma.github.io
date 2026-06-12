@@ -135,10 +135,9 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-lg text-muted-foreground max-w-lg mb-6 leading-relaxed"
+              className="text-md text-muted-foreground max-w-lg mb-6 leading-relaxed"
             >
-              I build high-quality, scalable web and native iOS applications 
-              that deliver exceptional user experiences — from concept to production.
+              I build high-quality, scalable web and native iOS applications that deliver exceptional user experiences from concept to production.
             </M.p>
             <M.p
               initial={{ opacity: 0 }}
