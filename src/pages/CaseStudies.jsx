@@ -41,8 +41,9 @@ export default function CaseStudies() {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground max-w-2xl leading-relaxed mb-12 sm:mb-16"
           >
-            Long-form breakdowns of how I scoped, built, and shipped flagship projects —
-            problem, approach, challenges, and outcomes.
+            {/* Long-form breakdowns of how I scoped, built, and shipped flagship projects —
+            problem, approach, challenges, and outcomes. */}
+            In-depth explorations of select projects, showcasing the challenges, design decisions, and technical solutions that went into building them.
           </Motion.p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
